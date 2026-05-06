@@ -1,5 +1,5 @@
 <h1 align="center">
-  	<img height="100" src="https://raw.github.com/kamranahmedse/nilbuild/master/public/img/logo.svg?sanitize=true" alt="Githunt" /> <br> GitHunt
+  	<img height="100" src="https://raw.github.com/nilbuild/githunt/master/public/img/logo.svg?sanitize=true" alt="Githunt" /> <br> GitHunt
 </h1>
 
 <p align="center">
