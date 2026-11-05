@@ -1,7 +1,12 @@
+import { ChevronDown, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+import { useMoreRepositories } from '../hooks/use-more-repositories';
 import type { ViewType } from '../hooks/use-preferences';
-import type { TrendingPage } from '../lib/github';
+import { MAX_SEARCH_RESULTS, PAGE_SIZE, type Repository, type TrendingPage } from '../lib/github';
 import { formatRange, getRangeTitle, type Period } from '../lib/period';
 import { formatFull } from '../lib/format';
+import { Button } from './button';
+import { ErrorNotice } from './notices';
 import { RepoGridItem } from './repo-grid-item';
 import { RepoListItem } from './repo-list-item';
 
@@ -10,12 +15,18 @@ type RepoGroupProps = {
   index: number;
   period: Period;
   view: ViewType;
+  languages: string[];
+  token: string;
+  onOpenSettings: () => void;
 };
 
-function GroupBody(props: RepoGroupProps) {
-  const repositories = props.page.repositories;
+type GroupBodyProps = {
+  repositories: Repository[];
+  view: ViewType;
+};
 
-  if (repositories.length === 0) {
+function GroupBody(props: GroupBodyProps) {
+  if (props.repositories.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-line-strong px-6 py-10 text-center text-sm text-muted">
         No repositories were created in this period.
@@ -26,7 +37,7 @@ function GroupBody(props: RepoGroupProps) {
   if (props.view === 'grid') {
     return (
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {repositories.map((repository, index) => (
+        {props.repositories.map((repository, index) => (
           <RepoGridItem key={repository.id} repository={repository} rank={index + 1} />
         ))}
       </div>
@@ -35,7 +46,7 @@ function GroupBody(props: RepoGroupProps) {
 
   return (
     <div className="card divide-y divide-line overflow-hidden">
-      {repositories.map((repository, index) => (
+      {props.repositories.map((repository, index) => (
         <RepoListItem key={repository.id} repository={repository} rank={index + 1} />
       ))}
     </div>
@@ -43,7 +54,17 @@ function GroupBody(props: RepoGroupProps) {
 }
 
 export function RepoGroup(props: RepoGroupProps) {
+  const [extraPages, setExtraPages] = useState(0);
+  const more = useMoreRepositories({
+    page: props.page,
+    languages: props.languages,
+    token: props.token,
+    extraPages,
+  });
+
   const range = { start: new Date(props.page.start), end: new Date(props.page.end) };
+  const available = Math.min(props.page.totalCount, MAX_SEARCH_RESULTS);
+  const hasMore = more.lastPageSize === PAGE_SIZE && more.repositories.length < available;
 
   return (
     <section>
@@ -56,7 +77,31 @@ export function RepoGroup(props: RepoGroupProps) {
           <span className="shrink-0 text-xs text-subtle tabular-nums">{formatFull(props.page.totalCount)} repos</span>
         ) : null}
       </div>
-      <GroupBody {...props} />
+
+      <GroupBody repositories={more.repositories} view={props.view} />
+
+      {more.error && !more.isLoading ? (
+        <div className="mt-3">
+          <ErrorNotice
+            error={more.error}
+            hasToken={Boolean(props.token)}
+            onRetry={more.retry}
+            onOpenSettings={props.onOpenSettings}
+          />
+        </div>
+      ) : null}
+
+      {hasMore && !more.error ? (
+        <div className="mt-3 flex items-center justify-center gap-3">
+          <Button size="sm" variant="ghost" onClick={() => setExtraPages((count) => count + 1)} disabled={more.isLoading}>
+            {more.isLoading ? <Loader2 className="size-4 animate-spin" /> : <ChevronDown className="size-4" />}
+            Show more
+          </Button>
+          <span className="text-xs text-subtle tabular-nums">
+            {formatFull(more.repositories.length)} of {formatFull(available)}
+          </span>
+        </div>
+      ) : null}
     </section>
   );
 }

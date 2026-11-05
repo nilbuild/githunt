@@ -103,7 +103,16 @@ export function App() {
 
         <div className="mt-8 space-y-10">
           {pages.map((page, index) => (
-            <RepoGroup key={page.start} page={page} index={index} period={period} view={view} />
+            <RepoGroup
+              key={`${languages.join(',')}:${page.start}`}
+              page={page}
+              index={index}
+              period={period}
+              view={view}
+              languages={languages}
+              token={token}
+              onOpenSettings={() => setSettingsOpen(true)}
+            />
           ))}
 
           {trending.isPending || trending.isFetchingNextPage ? <GroupSkeleton view={view} /> : null}

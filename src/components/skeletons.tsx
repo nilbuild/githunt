@@ -1,12 +1,13 @@
 import type { ViewType } from '../hooks/use-preferences';
 import { cn } from '../lib/cn';
+import { PAGE_SIZE } from '../lib/github';
 
 function Bar(props: { className: string }) {
   return <div className={cn('animate-pulse rounded bg-surface-3', props.className)} />;
 }
 
 export function GroupSkeleton(props: { view: ViewType }) {
-  const items = [0, 1, 2, 3, 4, 5];
+  const items = Array.from({ length: PAGE_SIZE }, (_, index) => index);
 
   return (
     <section aria-busy="true" aria-label="Loading repositories">
@@ -38,13 +39,17 @@ export function GroupSkeleton(props: { view: ViewType }) {
               <div className="flex-1">
                 <Bar className="h-5 w-1/3" />
                 <Bar className="mt-2 h-4 w-3/4" />
-                <Bar className="mt-3 h-3 w-1/3" />
+                <Bar className="mt-4 h-4 w-1/3" />
               </div>
               <Bar className="h-7 w-14 rounded-full" />
             </div>
           ))}
         </div>
       )}
+
+      <div className="mt-3 flex justify-center">
+        <Bar className="h-8 w-40" />
+      </div>
     </section>
   );
 }

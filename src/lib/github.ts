@@ -2,6 +2,7 @@ import { type DateRange, toQueryDate } from './period';
 
 const API_URL = 'https://api.github.com';
 export const PAGE_SIZE = 30;
+export const MAX_SEARCH_RESULTS = 1000;
 
 export type Repository = {
   id: number;
@@ -157,6 +158,7 @@ type FetchTrendingOptions = {
   range: DateRange;
   languages: string[];
   token: string;
+  page?: number;
   signal?: AbortSignal;
 };
 
@@ -166,6 +168,7 @@ export async function fetchTrending(options: FetchTrendingOptions): Promise<Tren
     sort: 'stars',
     order: 'desc',
     per_page: String(PAGE_SIZE),
+    page: String(options.page ?? 1),
   });
 
   const response = await request(`/search/repositories?${params}`, options);

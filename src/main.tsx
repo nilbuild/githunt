@@ -41,6 +41,9 @@ createRoot(document.getElementById('root')!).render(
         persister,
         maxAge: ONE_HOUR,
         buster: 'v3',
+        dehydrateOptions: {
+          shouldDehydrateQuery: (query) => query.queryKey[0] === 'trending' && query.state.status === 'success',
+        },
       }}>
       <App />
     </PersistQueryClientProvider>
