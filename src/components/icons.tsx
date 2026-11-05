@@ -7,3 +7,11 @@ export function GitHubIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function LogoIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="7.6 8.6 14.8 14.8" fill="currentColor" aria-hidden="true" {...props}>
+      <path fillRule="evenodd" d="M9.736 9.05a.653.653 0 01.282.126c.972.743 2.045 1.199 2.6 1.406A7.669 7.669 0 0115 10.199c.838 0 1.638.14 2.383.383.554-.208 1.627-.664 2.6-1.406a.649.649 0 011.005.281C21.428 10.636 22 12.954 22 16.5c0 3.479-3.135 6.3-7 6.3s-7-2.821-7-6.3c0-3.546.572-5.864 1.012-7.043a.645.645 0 01.724-.406zM12 14a2 2 0 00-2 2 2 2 0 002 2 2 2 0 002-2 2 2 0 00-2-2zm6 0a2 2 0 00-2 2 2 2 0 002 2 2 2 0 002-2 2 2 0 00-2-2zm-4 4a1 1 0 002 0h-2z" />
+    </svg>
+  );
+}

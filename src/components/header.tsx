@@ -2,7 +2,7 @@ import { KeyRound } from 'lucide-react';
 import { useToken } from '../hooks/use-preferences';
 import { buttonClasses } from '../lib/button-classes';
 import { cn } from '../lib/cn';
-import { GitHubIcon } from './icons';
+import { GitHubIcon, LogoIcon } from './icons';
 import { ThemeToggle } from './theme-toggle';
 
 type HeaderProps = {
@@ -16,7 +16,7 @@ export function Header(props: HeaderProps) {
     <header className="sticky top-0 z-30 border-b border-line bg-canvas/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
         <a href="./" className="flex items-center gap-2.5">
-          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="" className="size-7" />
+          <LogoIcon className="size-7 text-fg" />
           <span className="font-semibold tracking-tight">GitHunt</span>
         </a>
 
