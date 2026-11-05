@@ -24,11 +24,16 @@ function SaveForm(props: SaveFormProps) {
   const suggestion = suggestName(props.filters);
 
   if (props.activeView) {
-    return <p className="text-xs text-muted">Current filters are saved as “{props.activeView.name}”.</p>;
+    return (
+      <p className="flex items-center gap-2 text-sm text-muted">
+        <Check className="size-4 shrink-0" />
+        Saved as “{props.activeView.name}”
+      </p>
+    );
   }
 
   if (props.isFull) {
-    return <p className="text-xs text-muted">You can save up to {MAX_SAVED_VIEWS} views. Delete one to save another.</p>;
+    return <p className="text-sm text-muted">You can keep up to {MAX_SAVED_VIEWS} views. Delete one to save another.</p>;
   }
 
   const submit = (event: FormEvent) => {
@@ -38,24 +43,22 @@ function SaveForm(props: SaveFormProps) {
   };
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-2">
-      <label htmlFor={inputId} className="text-xs font-medium text-muted">
-        Save current filters
+    <form onSubmit={submit} className="flex gap-2">
+      <label htmlFor={inputId} className="sr-only">
+        View name
       </label>
-      <div className="flex gap-2">
-        <input
-          id={inputId}
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          placeholder={suggestion}
-          maxLength={40}
-          autoComplete="off"
-          className="h-8 min-w-0 flex-1 rounded-lg border border-line bg-canvas px-2.5 text-sm outline-none placeholder:text-subtle focus:border-line-strong focus:ring-2 focus:ring-surface-3"
-        />
-        <Button type="submit" variant="primary" size="sm">
-          Save
-        </Button>
-      </div>
+      <input
+        id={inputId}
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        placeholder={suggestion}
+        maxLength={40}
+        autoComplete="off"
+        className="h-8 min-w-0 flex-1 rounded-lg border border-line bg-surface px-2.5 text-sm outline-none placeholder:text-subtle focus:border-line-strong"
+      />
+      <Button type="submit" variant="primary" size="sm" className="focus-visible:ring-0 focus-visible:ring-offset-0">
+        Save
+      </Button>
     </form>
   );
 }
@@ -112,7 +115,7 @@ export function ViewsMenu(props: ViewsMenuProps) {
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-controls={menuId}
-        className={cn(buttonClasses('secondary', 'md'), 'w-full justify-between! gap-2 px-3 sm:w-auto sm:max-w-56')}
+        className={cn(buttonClasses('secondary', 'md'), 'w-full justify-between! gap-2 px-3 focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-auto sm:max-w-56')}
       >
         <span className="flex min-w-0 items-center gap-2">
           <Bookmark className={cn('size-4 shrink-0', activeView ? 'fill-current' : 'text-muted')} />
@@ -126,12 +129,8 @@ export function ViewsMenu(props: ViewsMenuProps) {
           id={menuId}
           className="absolute top-full left-0 z-40 mt-2 w-full min-w-72 overflow-hidden rounded-xl border border-line bg-surface shadow-xl shadow-black/10 sm:w-80 dark:shadow-black/50"
         >
-          <p className="px-3 pt-3 pb-1.5 text-xs font-medium text-muted">Saved views</p>
-
-          {views.length === 0 ? (
-            <p className="px-3 pb-3 text-sm text-subtle">No saved views yet. Save your current filters below.</p>
-          ) : (
-            <ul className="max-h-72 overflow-y-auto px-1 pb-1">
+          {views.length > 0 ? (
+            <ul className="max-h-72 overflow-y-auto p-1">
               {views.map((view) => {
                 const isActive = view.id === activeView?.id;
 
@@ -141,7 +140,7 @@ export function ViewsMenu(props: ViewsMenuProps) {
                       type="button"
                       onClick={() => apply(view)}
                       aria-current={isActive ? 'true' : undefined}
-                      className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left outline-none focus-visible:ring-2 focus-visible:ring-line-strong"
+                      className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left outline-none focus-visible:bg-surface-2"
                     >
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm font-medium">{view.name}</span>
@@ -154,7 +153,7 @@ export function ViewsMenu(props: ViewsMenuProps) {
                       onClick={() => remove(view.id)}
                       aria-label={`Delete ${view.name}`}
                       title="Delete view"
-                      className="mr-1 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-subtle opacity-60 transition hover:bg-surface-3 hover:text-fg group-hover:opacity-100 focus-visible:opacity-100"
+                      className="mr-1 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-subtle opacity-60 transition outline-none hover:bg-surface-3 hover:text-fg group-hover:opacity-100 focus-visible:bg-surface-3 focus-visible:opacity-100"
                     >
                       <X className="size-3.5" />
                     </button>
@@ -162,9 +161,12 @@ export function ViewsMenu(props: ViewsMenuProps) {
                 );
               })}
             </ul>
-          )}
+          ) : null}
 
-          <div className="border-t border-line p-3">
+          <div className={cn('flex flex-col gap-2.5 p-3', views.length > 0 && 'border-t border-line')}>
+            {views.length === 0 ? (
+              <p className="text-sm text-muted">Save these filters to switch back to them in one click.</p>
+            ) : null}
             <SaveForm
               filters={props.filters}
               activeView={activeView}
