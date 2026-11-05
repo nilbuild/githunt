@@ -1,7 +1,0 @@
-.filters-wrap .filter-item {
-  float: left;
-}
-
-.filters-wrap .filter-item:not(:first-child) {
-  margin-left: 15px;
-}

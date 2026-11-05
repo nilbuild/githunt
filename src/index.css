@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, monospace;
+
+  --color-canvas: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f4f5;
+  --color-surface-3: #e9e9eb;
+  --color-line: #e4e4e7;
+  --color-line-strong: #d4d4d8;
+  --color-fg: #09090b;
+  --color-muted: #52525b;
+  --color-subtle: #a1a1aa;
+  --color-star: #f5a524;
+}
+
+:root {
+  color-scheme: light;
+}
+
+:root.dark {
+  color-scheme: dark;
+  --color-canvas: #09090b;
+  --color-surface: #141417;
+  --color-surface-2: #1c1c20;
+  --color-surface-3: #27272c;
+  --color-line: #27272a;
+  --color-line-strong: #3a3a40;
+  --color-fg: #fafafa;
+  --color-muted: #a1a1aa;
+  --color-subtle: #71717a;
+  --color-star: #fbbf24;
+}
+
+@utility card {
+  @apply rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.04)];
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+body {
+  @apply bg-canvas font-sans text-fg antialiased;
+}
+
+::selection {
+  @apply bg-fg text-canvas;
+}
+
