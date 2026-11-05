@@ -21,6 +21,8 @@ const INITIAL_RENDER_COUNT = 40;
 type LanguageSelectProps = {
   value: string[];
   onChange: (languages: string[]) => void;
+  hideNoLanguage: boolean;
+  onHideNoLanguageChange: (hide: boolean) => void;
 };
 
 type Option = {
@@ -350,6 +352,18 @@ export function LanguageSelect(props: LanguageSelectProps) {
               );
             })}
           </div>
+
+          {draft.length === 0 ? (
+            <label className="flex cursor-pointer items-center justify-between gap-2 border-t border-line px-3 py-2.5 text-xs text-muted">
+              Hide repos with no language
+              <input
+                type="checkbox"
+                checked={props.hideNoLanguage}
+                onChange={(event) => props.onHideNoLanguageChange(event.target.checked)}
+                className="size-3.5 accent-fg"
+              />
+            </label>
+          ) : null}
 
           {draft.length > 0 ? (
             <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2">

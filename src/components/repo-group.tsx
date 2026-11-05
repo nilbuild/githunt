@@ -15,6 +15,7 @@ type RepoGroupProps = {
   period: Period;
   view: ViewType;
   languages: string[];
+  hideNoLanguage: boolean;
   token: string;
   onOpenSettings: () => void;
 };
@@ -31,11 +32,14 @@ export function RepoGroup(props: RepoGroupProps) {
   const range = { start: new Date(props.page.start), end: new Date(props.page.end) };
   const available = Math.min(props.page.totalCount, MAX_SEARCH_RESULTS);
   const hasMore = more.lastPageSize === PAGE_SIZE && more.repositories.length < available && !more.error;
-  const repositories = more.repositories;
+  const shouldHide = props.hideNoLanguage && props.languages.length === 0;
+  const repositories = shouldHide
+    ? more.repositories.filter((repository) => repository.language)
+    : more.repositories;
 
   const showMoreBar = hasMore ? (
     <ShowMoreBar
-      shown={repositories.length}
+      shown={more.repositories.length}
       available={available}
       isLoading={more.isLoading}
       onShowMore={() => setExtraPages((count) => count + 1)}
@@ -48,7 +52,9 @@ export function RepoGroup(props: RepoGroupProps) {
 
       {repositories.length === 0 ? (
         <div className="rounded-xl border border-dashed border-line-strong px-6 py-10 text-center text-sm text-muted">
-          No repositories were created in this period.
+          {more.repositories.length > 0
+            ? 'None of these repositories have a language.'
+            : 'No repositories were created in this period.'}
         </div>
       ) : null}
 

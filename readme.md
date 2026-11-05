@@ -8,7 +8,7 @@
 [![Website](https://img.shields.io/badge/website-kamran.fyi%2Fgithunt-black)](https://kamran.fyi/githunt)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./license.md)
 
-The most starred new repositories on GitHub, by day, week, month or year.
+See the most starred new repos on GitHub from today, this week, this month or this year.
 
 <img src="./.github/banner.jpg" width="720" alt="GitHunt showing the most starred repositories of the past year" />
 
@@ -16,17 +16,17 @@ The most starred new repositories on GitHub, by day, week, month or year.
 
 ## Why
 
-GitHub Trending shows what is busy today. GitHunt shows what is new: repositories created in a given period, ranked by stars. Check it once a week and you won't miss the projects everyone else finds a month later.
+GitHub Trending shows what's popular right now, old repos included. GitHunt only shows repos that were created recently, sorted by stars. It's an easy way to find new projects early.
 
 ## Features
 
-- Day, week, month or year, and scroll back in time one period at a time
-- Filter by one or more languages
-- List or grid view, light and dark mode
-- Save filter combinations as views, and share any view with a link
-- Runs entirely in your browser. No account, no server
+- Pick a day, week, month or year, and keep scrolling to go further back
+- Filter by one or more languages, or hide repos with no language
+- List or grid view, light or dark mode
+- Save your filters and share them with a link
+- Works right in your browser, no sign up needed
 
-GitHub allows 10 searches a minute without signing in. Add a [personal access token](https://github.com/settings/personal-access-tokens/new) from the header to raise that to 30. It never leaves your browser.
+GitHub lets you search 10 times a minute without a token. [Add a token](https://github.com/settings/personal-access-tokens/new) from the top bar to get 30. It stays in your browser.
 
 ## License
 

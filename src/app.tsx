@@ -10,6 +10,7 @@ import { SegmentedControl } from './components/segmented-control';
 import { TokenDialog } from './components/token-dialog';
 import { ViewsMenu } from './components/views-menu';
 import {
+  useHideNoLanguage,
   useLanguages,
   usePeriod,
   useToken,
@@ -38,6 +39,7 @@ const PERIOD_DESCRIPTIONS = {
 export function App() {
   const queryClient = useQueryClient();
   const [period, setPeriod] = usePeriod();
+  const [hideNoLanguage, setHideNoLanguage] = useHideNoLanguage();
   const [languages, setLanguages] = useLanguages();
   const [view, setView] = useViewType();
   const [token] = useToken();
@@ -92,7 +94,12 @@ export function App() {
               }}
             />
             <div className="hidden h-5 w-px bg-line-strong sm:block" />
-            <LanguageSelect value={languages} onChange={setLanguages} />
+            <LanguageSelect
+              value={languages}
+              onChange={setLanguages}
+              hideNoLanguage={hideNoLanguage}
+              onHideNoLanguageChange={setHideNoLanguage}
+            />
             <SegmentedControl label="Time period" value={period} options={PERIODS} onChange={setPeriod} />
           </div>
           <SegmentedControl
@@ -119,6 +126,7 @@ export function App() {
               period={period}
               view={view}
               languages={languages}
+              hideNoLanguage={hideNoLanguage}
               token={token}
               onOpenSettings={() => setSettingsOpen(true)}
             />

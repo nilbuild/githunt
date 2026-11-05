@@ -12,6 +12,7 @@ export const STORAGE_KEYS = {
   theme: 'githunt:theme',
   tokenNoticeDismissed: 'githunt:token-notice-dismissed',
   savedViews: 'githunt:saved-views',
+  hideNoLanguage: 'githunt:hide-no-language',
 } as const;
 
 export function usePeriod() {
@@ -30,6 +31,10 @@ export function useViewType() {
 
 export function useToken() {
   return useLocalStorage<string>(STORAGE_KEYS.token, '');
+}
+
+export function useHideNoLanguage() {
+  return useLocalStorage<boolean>(STORAGE_KEYS.hideNoLanguage, false);
 }
 
 export function useTokenNoticeDismissed() {
