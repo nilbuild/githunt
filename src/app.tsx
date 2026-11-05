@@ -1,14 +1,14 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { History, LayoutGrid, List, Loader2 } from 'lucide-react';
+import { LayoutGrid, List } from 'lucide-react';
 import { type ReactNode, useEffect, useState } from 'react';
-import { Button } from './components/button';
 import { Header } from './components/header';
 import { LanguageSelect } from './components/language-select';
-import { ErrorNotice, TokenNotice } from './components/notices';
+import { NextPeriod } from './components/next-period';
+import { TokenNotice } from './components/notices';
 import { RepoGroup } from './components/repo-group';
 import { SegmentedControl } from './components/segmented-control';
-import { GroupSkeleton } from './components/skeletons';
 import { TokenDialog } from './components/token-dialog';
+import { ViewsMenu } from './components/views-menu';
 import {
   useLanguages,
   usePeriod,
@@ -83,6 +83,15 @@ export function App() {
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <ViewsMenu
+              filters={{ languages, period, view }}
+              onApply={(saved) => {
+                setLanguages(saved.languages);
+                setPeriod(saved.period);
+                setView(saved.view);
+              }}
+            />
+            <div className="hidden h-5 w-px bg-line-strong sm:block" />
             <LanguageSelect value={languages} onChange={setLanguages} />
             <SegmentedControl label="Time period" value={period} options={PERIODS} onChange={setPeriod} />
           </div>
@@ -115,26 +124,19 @@ export function App() {
             />
           ))}
 
-          {trending.isPending || trending.isFetchingNextPage ? <GroupSkeleton view={view} /> : null}
-
-          {trending.error && !trending.isFetching ? (
-            <ErrorNotice
-              error={trending.error}
-              hasToken={Boolean(token)}
-              onRetry={retry}
-              onOpenSettings={() => setSettingsOpen(true)}
-            />
-          ) : null}
+          <NextPeriod
+            key={`${period}:${pages.length}`}
+            period={period}
+            index={pages.length}
+            view={view}
+            isLoading={trending.isPending || trending.isFetchingNextPage}
+            error={trending.isFetching ? null : trending.error}
+            hasToken={Boolean(token)}
+            onLoad={() => trending.fetchNextPage()}
+            onRetry={retry}
+            onOpenSettings={() => setSettingsOpen(true)}
+          />
         </div>
-
-        {pages.length > 0 && !trending.error ? (
-          <div className="mt-10 flex justify-center">
-            <Button onClick={() => trending.fetchNextPage()} disabled={trending.isFetchingNextPage}>
-              {trending.isFetchingNextPage ? <Loader2 className="size-4 animate-spin" /> : <History className="size-4" />}
-              Load previous {period}
-            </Button>
-          </div>
-        ) : null}
       </main>
 
       <footer className="border-t border-line">

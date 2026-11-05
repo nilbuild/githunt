@@ -88,3 +88,11 @@ export function formatRange(range: DateRange, now = new Date()) {
 
   return `${format(range.start, pattern)} – ${format(range.end, pattern)}`;
 }
+
+export function getLoadLabel(title: string) {
+  if (title === 'Yesterday' || title.startsWith('Previous')) {
+    return title.charAt(0).toLowerCase() + title.slice(1);
+  }
+
+  return title;
+}

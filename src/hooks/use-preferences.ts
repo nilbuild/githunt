@@ -11,6 +11,7 @@ export const STORAGE_KEYS = {
   token: 'githunt:token',
   theme: 'githunt:theme',
   tokenNoticeDismissed: 'githunt:token-notice-dismissed',
+  savedViews: 'githunt:saved-views',
 } as const;
 
 export function usePeriod() {
@@ -33,4 +34,18 @@ export function useToken() {
 
 export function useTokenNoticeDismissed() {
   return useLocalStorage<boolean>(STORAGE_KEYS.tokenNoticeDismissed, false);
+}
+
+export type SavedView = {
+  id: string;
+  name: string;
+  languages: string[];
+  period: Period;
+  view: ViewType;
+};
+
+const NO_SAVED_VIEWS: SavedView[] = [];
+
+export function useSavedViews() {
+  return useLocalStorage<SavedView[]>(STORAGE_KEYS.savedViews, NO_SAVED_VIEWS);
 }

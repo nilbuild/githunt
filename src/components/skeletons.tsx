@@ -6,17 +6,21 @@ function Bar(props: { className: string }) {
   return <div className={cn('animate-pulse rounded bg-surface-3', props.className)} />;
 }
 
+function FooterSkeleton() {
+  return (
+    <div className="flex items-center justify-between gap-4 py-2.5 pr-2.5 pl-4 sm:pl-5">
+      <Bar className="h-4 w-32" />
+      <Bar className="h-8 w-28 rounded-lg" />
+    </div>
+  );
+}
+
 export function GroupSkeleton(props: { view: ViewType }) {
   const items = Array.from({ length: PAGE_SIZE }, (_, index) => index);
 
-  return (
-    <section aria-busy="true" aria-label="Loading repositories">
-      <div className="mb-3 flex items-baseline gap-3">
-        <Bar className="h-6 w-28" />
-        <Bar className="h-4 w-32" />
-      </div>
-
-      {props.view === 'grid' ? (
+  if (props.view === 'grid') {
+    return (
+      <div aria-busy="true" aria-label="Loading repositories">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <div key={item} className="card p-4">
@@ -31,25 +35,29 @@ export function GroupSkeleton(props: { view: ViewType }) {
             </div>
           ))}
         </div>
-      ) : (
-        <div className="card divide-y divide-line">
-          {items.map((item) => (
-            <div key={item} className="flex gap-4 px-4 py-4 sm:px-5">
-              <Bar className="size-9 shrink-0 rounded-full" />
-              <div className="flex-1">
-                <Bar className="h-5 w-1/3" />
-                <Bar className="mt-2 h-4 w-3/4" />
-                <Bar className="mt-4 h-4 w-1/3" />
-              </div>
-              <Bar className="h-7 w-14 rounded-full" />
-            </div>
-          ))}
+        <div className="card mt-3 rounded-xl">
+          <FooterSkeleton />
         </div>
-      )}
-
-      <div className="mt-3 flex justify-center">
-        <Bar className="h-8 w-40" />
       </div>
-    </section>
+    );
+  }
+
+  return (
+    <div aria-busy="true" aria-label="Loading repositories" className="card divide-y divide-line overflow-hidden">
+      {items.map((item) => (
+        <div key={item} className="flex gap-4 px-4 py-4 sm:px-5">
+          <Bar className="size-9 shrink-0 rounded-full" />
+          <div className="flex-1">
+            <Bar className="h-5 w-1/3" />
+            <Bar className="mt-2 h-4 w-3/4" />
+            <Bar className="mt-4 h-4 w-1/3" />
+          </div>
+          <Bar className="h-7 w-14 rounded-full" />
+        </div>
+      ))}
+      <div className="bg-surface-2">
+        <FooterSkeleton />
+      </div>
+    </div>
   );
 }
