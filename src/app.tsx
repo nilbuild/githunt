@@ -18,6 +18,7 @@ import {
   type ViewType,
 } from './hooks/use-preferences';
 import { useTrending } from './hooks/use-trending';
+import { useUrlSync } from './hooks/use-url-sync';
 import { PERIODS } from './lib/period';
 
 const VIEW_OPTIONS: { value: ViewType; label: ReactNode; ariaLabel: string }[] = [
@@ -42,6 +43,8 @@ export function App() {
   const [token] = useToken();
   const [isNoticeDismissed, setNoticeDismissed] = useTokenNoticeDismissed();
   const [isSettingsOpen, setSettingsOpen] = useState(false);
+
+  useUrlSync({ languages, period, view });
 
   const trending = useTrending({ period, languages, token });
   const pages = trending.data?.pages ?? [];

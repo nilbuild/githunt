@@ -13,9 +13,9 @@ import {
 import { buttonClasses } from '../lib/button-classes';
 import { cn } from '../lib/cn';
 import { ALL_LANGUAGES, getLanguageColor, POPULAR_LANGUAGES } from '../lib/languages';
+import { MAX_LANGUAGES } from '../lib/url-state';
 import { Button } from './button';
 
-const MAX_LANGUAGES = 5;
 const INITIAL_RENDER_COUNT = 40;
 
 type LanguageSelectProps = {

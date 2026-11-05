@@ -6,11 +6,13 @@ import { createRoot } from 'react-dom/client';
 import { App } from './app';
 import { GitHubError } from './lib/github';
 import { migrateLegacyStorage } from './lib/legacy-storage';
+import { applyUrlStateToStorage } from './lib/url-state';
 import './index.css';
 
 const ONE_HOUR = 1000 * 60 * 60;
 
 migrateLegacyStorage();
+applyUrlStateToStorage();
 
 const queryClient = new QueryClient({
   defaultOptions: {
