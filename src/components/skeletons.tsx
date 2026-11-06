@@ -23,7 +23,7 @@ export function GroupSkeleton(props: { view: ViewType }) {
       <div aria-busy="true" aria-label="Loading repositories">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <div key={item} className="card p-4">
+            <div key={item} className="card flex min-h-[255px] flex-col p-5">
               <div className="flex items-center gap-2">
                 <Bar className="size-6 rounded-full" />
                 <Bar className="h-4 w-24" />
@@ -31,7 +31,7 @@ export function GroupSkeleton(props: { view: ViewType }) {
               <Bar className="mt-4 h-5 w-2/3" />
               <Bar className="mt-3 h-4 w-full" />
               <Bar className="mt-2 h-4 w-4/5" />
-              <Bar className="mt-5 h-3 w-1/2" />
+              <Bar className="mt-auto h-3 w-1/2" />
             </div>
           ))}
         </div>
