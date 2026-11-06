@@ -12,7 +12,7 @@ export function RepoGridItem(props: RepoGridItemProps) {
   const repository = props.repository;
 
   return (
-    <article className="card flex flex-col p-4 transition-colors hover:border-line-strong">
+    <article className="card flex min-h-[255px]flex-col p-5 transition-colors hover:border-line-strong">
       <div className="flex items-center justify-between gap-3">
         <a
           href={repository.owner.url}
@@ -26,14 +26,14 @@ export function RepoGridItem(props: RepoGridItemProps) {
         <span className="font-mono text-xs text-subtle tabular-nums">#{props.rank}</span>
       </div>
 
-      <h3 className="mt-3 truncate font-semibold">
+      <h3 className="mt-4 truncate font-semibold">
         <a href={repository.url} target="_blank" rel="noreferrer" className="hover:underline">
           {repository.name}
         </a>
       </h3>
-      <RepoDescription description={repository.description} className="mt-1 line-clamp-3 flex-1" />
+      <RepoDescription description={repository.description} className="mt-1.5 line-clamp-3" />
 
-      <div className="mt-4 flex items-center justify-between gap-3">
+      <div className="mt-auto flex items-center pt-5 justify-between gap-3">
         <RepoStats repository={repository} />
         <StarCount repository={repository} className="text-xs" />
       </div>
