@@ -8,15 +8,15 @@
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, monospace;
 
-  --color-canvas: oklch(96% 0.016 72);
-  --color-surface: oklch(98.5% 0.008 75);
-  --color-surface-2: oklch(96% 0.016 72);
-  --color-surface-3: oklch(92% 0.018 68);
-  --color-line: oklch(92% 0.018 68);
-  --color-line-strong: oklch(87% 0.025 63);
-  --color-fg: oklch(20% 0.018 46);
-  --color-muted: oklch(44% 0.038 52);
-  --color-subtle: oklch(55% 0.042 55);
+  --color-canvas: oklch(96.5% 0.007 60);
+  --color-surface: oklch(99% 0.003 60);
+  --color-surface-2: oklch(96.5% 0.007 60);
+  --color-surface-3: oklch(92.5% 0.009 58);
+  --color-line: oklch(92.5% 0.009 58);
+  --color-line-strong: oklch(87.5% 0.012 56);
+  --color-fg: oklch(20% 0.012 46);
+  --color-muted: oklch(44% 0.02 50);
+  --color-subtle: oklch(58% 0.022 52);
   --color-star: #ff8c26;
 }
 
