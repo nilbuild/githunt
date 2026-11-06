@@ -12,7 +12,7 @@ export function RepoGridItem(props: RepoGridItemProps) {
   const repository = props.repository;
 
   return (
-    <article className="card flex min-h-[255px]flex-col p-5 transition-colors hover:border-line-strong">
+    <article className="card flex min-h-[255px] flex-col p-5 transition-colors hover:border-line-strong">
       <div className="flex items-center justify-between gap-3">
         <a
           href={repository.owner.url}
