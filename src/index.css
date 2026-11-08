@@ -27,12 +27,12 @@
 
 :root.dark {
   color-scheme: dark;
-  --color-canvas: oklch(14.5% 0.012 44);
-  --color-surface: oklch(17.5% 0.014 46);
-  --color-surface-2: oklch(20% 0.018 46);
-  --color-surface-3: oklch(23.5% 0.021 47);
-  --color-line: oklch(27% 0.024 48);
-  --color-line-strong: oklch(32% 0.028 49);
+  --color-canvas: oklch(13% 0.011 44);
+  --color-surface: oklch(20% 0.016 46);
+  --color-surface-2: oklch(23% 0.019 47);
+  --color-surface-3: oklch(26.5% 0.022 48);
+  --color-line: oklch(29% 0.022 48);
+  --color-line-strong: oklch(36% 0.026 50);
   --color-fg: #ede3d8;
   --color-muted: oklch(71% 0.038 58);
   --color-subtle: oklch(55% 0.042 55);
@@ -40,7 +40,7 @@
 }
 
 @utility card {
-  @apply rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.04)];
+  @apply rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgb(0_0_0/0.04)] dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.06),0_1px_2px_rgb(0_0_0/0.5),0_6px_16px_-8px_rgb(0_0_0/0.6)];
 }
 
 @utility no-scrollbar {
