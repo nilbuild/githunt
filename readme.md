@@ -10,7 +10,7 @@
 
 See the most starred new repos on GitHub from today, this week, this month or this year.
 
-<img src="./.github/banner.jpg" width="720" alt="GitHunt showing the most starred repositories of the past year" />
+<img src="./.github/banner.jpg" width="720" alt="GitHunt in light and dark mode showing the most starred repositories of the past year" />
 
 [![Open GitHunt](https://img.shields.io/badge/Open_GitHunt-000000?style=for-the-badge&logo=github&logoColor=white)](https://kamran.fyi/githunt)
 
